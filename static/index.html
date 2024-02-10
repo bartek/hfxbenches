@@ -5,6 +5,12 @@
         crossorigin=""/>
     <style type="text/css">
         #map { height: 580px; }
+        .circle {
+          height: 8px;
+          width: 8px;
+          border-radius: 50%;
+          display: inline-block;
+        }
     </style>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
@@ -19,6 +25,31 @@
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    function getColor(d) {
+        return d === 'Public' ? "#9BBFC9" :
+               d === 'Park' ? "#9BBFC9" :
+               d === 'School' ? "#9BBFC9" :
+               d === 'Other' ? "#9BBFC9" :
+                              '#FFEDA0';
+    }
+
+    var legend = L.control({position: 'topright'});
+    legend.onAdd = function(map) {
+        var div = L.DomUtil.create('div', 'info legend');
+        labels = ['<strong>Categories</strong>'];
+        categories = ['Public', 'Park', 'School', 'Other'];
+        for (var i = 0; i < categories.length; i++) {
+            div.innerHTML += 
+            labels.push(
+                '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+                    (categories[i] ? categories[i] : '+'));
+
+        }
+        div.innerHTML = labels.join('<br>');
+        return div;
+    }
+    legend.addTo(map);
+
     fetch('http://127.0.0.1:8081/data.geojson')
         .then(response => {
             return response.json();
@@ -27,9 +58,10 @@
             console.log(data);
             L.geoJSON(data, {
                 pointToLayer: function(feature, latlng) {
+                    console.log(feature);
                     return L.circleMarker(latlng, {
                         radius: 3,
-                        fillColor: "#ff7800",
+                        fillColor: feature.properties.colour,
                         color: "#000",
                         weight: 1,
                         opacity: 1,

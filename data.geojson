@@ -11,7 +11,8 @@
         ]
       },
       "properties": {
-        "Type": "Public"
+        "Type": "Public",
+        "colour": "#9BBFC9"
       }
     },
     {
@@ -24,7 +25,8 @@
         ]
       },
       "properties": {
-        "Type": "Public"
+        "Type": "Public",
+        "colour": "#9BBFC9"
       }
     },
     {
@@ -37,7 +39,8 @@
         ]
       },
       "properties": {
-        "Type": "Public"
+        "Type": "Public",
+        "colour": "#9BBFC9"
       }
     },
     {
@@ -50,7 +53,8 @@
         ]
       },
       "properties": {
-        "Type": "Public"
+        "Type": "Public",
+        "colour": "#9BBFC9"
       }
     },
     {
@@ -63,7 +67,8 @@
         ]
       },
       "properties": {
-        "Type": "Public"
+        "Type": "Public",
+        "colour": "#9BBFC9"
       }
     },
     {
@@ -76,7 +81,8 @@
         ]
       },
       "properties": {
-        "Type": "Public"
+        "Type": "Public",
+        "colour": "#9BBFC9"
       }
     },
     {
@@ -89,7 +95,8 @@
         ]
       },
       "properties": {
-        "Type": "Public"
+        "Type": "Public",
+        "colour": "#9BBFC9"
       }
     },
     {
@@ -102,7 +109,8 @@
         ]
       },
       "properties": {
-        "Type": "Public"
+        "Type": "Public",
+        "colour": "#9BBFC9"
       }
     },
     {
@@ -115,7 +123,8 @@
         ]
       },
       "properties": {
-        "Type": "Public"
+        "Type": "Public",
+        "colour": "#9BBFC9"
       }
     },
     {
@@ -128,7 +137,8 @@
         ]
       },
       "properties": {
-        "Type": "Public"
+        "Type": "Public",
+        "colour": "#9BBFC9"
       }
     }
   ]

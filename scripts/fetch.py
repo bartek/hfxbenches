@@ -111,6 +111,12 @@ def create_feature(row: RowData):
     if x:
         return None
 
+    colors = {
+        "public": "#9BBFC9",
+        "playground": "#9BBFC9",
+        "school": "#9BBFC9"
+    }
+
     properties = {}
 
     for kw in keywords:
@@ -119,6 +125,7 @@ def create_feature(row: RowData):
         if kw.startswith("type"):
             p = kw.split(":")[1]
             properties["Type"] = p.title()
+            properties["colour"] = colors[p]
 
     # Map the various keywords to the appropriate properties.
     return {
