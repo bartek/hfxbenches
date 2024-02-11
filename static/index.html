@@ -4,7 +4,14 @@
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
     <style type="text/css">
-        #map { height: 580px; }
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        #map { 
+            height: 100%;
+            width: 100%;
+        }
         .circle {
           height: 8px;
           width: 8px;
@@ -20,17 +27,19 @@
   <div id="map"></div>
   <script>
     var map = L.map('map').setView([44.641070, -63.582687], 13);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    function getColor(d) {
-        return d === 'Public' ? "#9BBFC9" :
-               d === 'Park' ? "#9BBFC9" :
-               d === 'School' ? "#9BBFC9" :
-               d === 'Other' ? "#9BBFC9" :
-                              '#FFEDA0';
+    function getColor(typ) {
+        switch(typ) {
+            case 'Public': return "#5E239D";
+            case 'Park': return "#00F0B5";
+            case 'School': return "#F61067";
+            case 'Other': return "#DFAD16";
+            default: return "#FFEDA0";
+        }
     }
 
     var legend = L.control({position: 'topright'});
@@ -55,13 +64,10 @@
             return response.json();
         })
         .then(data => {
-            console.log(data);
             L.geoJSON(data, {
                 pointToLayer: function(feature, latlng) {
-                    console.log(feature);
                     return L.circleMarker(latlng, {
                         radius: 3,
-                        fillColor: feature.properties.colour,
                         color: "#000",
                         weight: 1,
                         opacity: 1,
@@ -69,10 +75,16 @@
                     });
                 },
                 style: function(feature) {
-                    switch(feature.properties.Type) {
-                        case 'Ring': return {color: "#ff0000"};
-                        case 'Corral': return {color: "#00ff00"};
+                    props = {
+                        fillColor: getColor(feature.properties.Type),
                     }
+
+                    switch(feature.properties.Size) {
+                        case "cluster": props.radius = 6; break;
+                        default: props.radius = 3; break;
+                    }
+
+                    return props;
                 }
             }).addTo(map);
         }).

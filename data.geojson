@@ -221,7 +221,7 @@
         ]
       },
       "properties": {
-        "Type": "Park",
+        "Type": "School",
         "colour": "#9BBFC9",
         "Size": "cluster"
       }
@@ -279,7 +279,7 @@
         ]
       },
       "properties": {
-        "Type": "Park",
+        "Type": "School",
         "colour": "#9BBFC9",
         "Size": "cluster"
       }
@@ -374,7 +374,7 @@
         "type": "Point",
         "coordinates": [
           "-63.6375383333333",
-          "44.6524783333333"
+          "44.6521783333333"
         ]
       },
       "properties": {
