@@ -26,17 +26,13 @@ dogsheep-photos apple-photos photos.db
 
 This gets us an sqlite database containing metadata for all photos within Apple Photos. Prior to exporting, I will place the most recent capture of benches into an album (which is used later), and I use the `Information` tab to set the bench type through keywords (eg `type:public` keyword)
 
-With the sqlite database processed, obtaining the GeoJSON data is simply providing the categorized album into `scripts/fetch.py`
+With the sqlite database processed, obtaining the GeoJSON data is simply running `scripts/fetch.py`. Ensure any new albums are in the top level variable (within the script):
 
 ```
-ALBUM="benches northend" python3 scripts/fetch.py > partial.geojson
+python3 scripts/fetch.py > data.geojson
 ```
 
-The resulting FeatureCollection can then be merged with the primary dataset (`data.geojson`). A helper script is included:
-
-```
-./merge.sh partial.geojson
-```
+The resulting FeatureCollection then represents all points of interest collected thus far.
 
 ## Rendered Map
 

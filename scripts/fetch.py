@@ -5,16 +5,19 @@ import os
 import sqlite3
 
 # This script queries the Apple Photos database and returns a GeoJSON blob
-# which can be uploaded to Felt (or appropriate source)
+# which represents all points of interest collected. The source of truth is the
+# Apple Photos db.
 #
 # First, obtain the photos.db
 # dogsheep-photos apple-photos photos.db
-# Then, adjust the query in line within this script (this can/should be improved in the future)
-# When run, a GeoJSON feature collection will be returned. Pipe this to a file and upload.
-
-# The album name (which is what will house the photos we want to process) is
-# fetched from the environment
-album_name = os.environ.get("ALBUM")
+#
+# Then, ensure the album names which contain relevant photos are referenced.
+# The script will iterate through all specified albums and return a single
+# GeoJSON file. This represents all points of interest collected.
+ALBUM_NAMES = [
+    'benches outer peninsula',
+    'benches northend',
+]
 
 RowData = namedtuple('RowData', [
     'sha256',
@@ -72,23 +75,24 @@ def query_database(db_file):
         conn = sqlite3.connect(db_file)
         cursor = conn.cursor()
 
-        # Perform the query
-        query = """SELECT * FROM apple_photos WHERE albums = '["{}"]'""".format(album_name)
-        cursor.execute(query)
-
-        features = []
-
-        rows = cursor.fetchall()
-        for row in rows:
-            f = create_feature(RowData(*row))
-            if f is not None:
-                features.append(f)
-
         feature_collection = {
             "type": "FeatureCollection",
-            "features": features
         }
 
+        features = []
+        # Perform a query for each album
+        for album_name in ALBUM_NAMES:
+            # Perform the query
+            query = """SELECT * FROM apple_photos WHERE albums = '["{}"]'""".format(album_name)
+            cursor.execute(query)
+
+            for row in cursor.fetchall():
+                f = create_feature(RowData(*row))
+                if f is None:
+                    continue
+                features.append(f)
+
+        feature_collection["features"] = features
         geojson_blob = json.dumps(feature_collection, indent=2)
         print(geojson_blob)
 
