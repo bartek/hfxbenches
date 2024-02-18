@@ -1,5 +1,7 @@
 # Benches of Halifax
 
+Work in progress rendering at [justbartek.ca/hfxbenches](https://justbartek.ca/hfxbenches)
+
 _A nice place to sit welcomes you to your city._
 
 This project contains open-format data, a rendered map, and a variety of helper

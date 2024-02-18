@@ -28,11 +28,8 @@
   <script>
     var map = L.map('map').setView([44.641070, -63.582687], 13);
     
-    // TODO: Rotate! (has URL restrictions)
-    token = "pk.eyJ1IjoiYmFydGVrY2kiLCJhIjoiY2xzcXRxczl0MTVsYTJpbXIzbTE0bXZsNCJ9.cyof53R0DG5Xj5cMeydnwA";
-
     L.tileLayer(
-      'https://api.mapbox.com/styles/v1/mapbox/emerald-v8/tiles/{z}/{x}/{y}?access_token=' + token, {
+        'https://api.mapbox.com/styles/v1/mapbox/emerald-v8/tiles/{z}/{x}/{y}?access_token={{ token }}', {
           tileSize: 512,
           zoomOffset: -1,
           attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
