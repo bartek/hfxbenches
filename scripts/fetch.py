@@ -1,7 +1,6 @@
 from collections import namedtuple
 import ast
 import json
-import os
 import sqlite3
 
 # This script queries the Apple Photos database and returns a GeoJSON blob
@@ -17,6 +16,8 @@ import sqlite3
 ALBUM_NAMES = [
     'benches outer peninsula',
     'benches northend',
+    'benches dartmouth',
+    'benches peninsula',
 ]
 
 RowData = namedtuple('RowData', [
